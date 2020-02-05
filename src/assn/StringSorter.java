@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StringSorter {
-	
+
 	ArrayList<String> lines = new ArrayList<String>();
-	
+
 	public void read(File rawData) throws FileNotFoundException{
 		Scanner in= new Scanner(rawData);
 		while(in.hasNextLine()){
@@ -20,7 +20,7 @@ public class StringSorter {
 		}
 		in.close();
 	}
-	
+
 	public void write(File sortedData) throws FileNotFoundException{
 		PrintWriter out = new PrintWriter(sortedData);
 		Iterator<String> it =lines.iterator();
@@ -29,26 +29,35 @@ public class StringSorter {
 		}
 		out.close();
 	}
-	
+
 	//This is the raw version which needs to be refactored
 	public void sort(){
 		//Collections.sort(lines);
-				int j = lines.size()-1;
-				while (j>0){
-					List <String> sublist = lines.subList(0,j+1);
-					int index = 0;
-					String str = sublist.get(index);
-					for (int i=0; i<sublist.size(); i++){
-						if (str.compareTo(sublist.get(i))<=0){
-							index = i;
-							str = sublist.get(index);
-						}
-					}
-					lines.set(index, lines.get(j));
-					lines.set(j, str);
-					j = j-1;
-				}
-				System.out.println("Sort Complete");
+		int j = lines.size()-1;
+		while (j>0){
+			List <String> sublist = lines.subList(0,j+1);
+			String str = sublist.get(findLastLine(sublist));
+
+			lines.set(findLastLine(sublist), lines.get(j));
+			lines.set(j, str);
+			
+			j = j-1;
 		}
-		
-}
+		System.out.println("Sort Complete");
+	}
+
+	public int findLastLine(List <String> sublist){
+		int index = 0;
+		String str = sublist.get(index);
+		for (int i=0; i<sublist.size(); i++){
+			if (str.compareTo(sublist.get(i))<=0){
+				index = i;
+				str = sublist.get(index);
+			}
+		}
+
+		return index;
+
+	}
+
+	}
