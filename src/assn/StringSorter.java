@@ -38,12 +38,21 @@ public class StringSorter {
 			List <String> sublist = lines.subList(0,j+1);
 			String str = sublist.get(findLastLine(sublist));
 
-			lines.set(findLastLine(sublist), lines.get(j));
-			lines.set(j, str);
+			swap(findLastLine(sublist), j);
+		
 			
 			j = j-1;
 		}
 		System.out.println("Sort Complete");
+	}
+	
+	public void swap(int primary, int secondary){
+		//Method swaps the strings described by their index 
+		String primaryString = lines.get(primary);
+		String secondaryString = lines.get(secondary);
+		lines.set(secondary, primaryString);
+		lines.set(primary, secondaryString);
+		
 	}
 
 	public int findLastLine(List <String> sublist){
